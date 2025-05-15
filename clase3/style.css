@@ -66,6 +66,23 @@ label {
   cursor: pointer;
 }
 
+#cuadrado5 {
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+#circulo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: black;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
 .clase-original {
   background-color: rgb(43, 107, 226);
   width: 200px;

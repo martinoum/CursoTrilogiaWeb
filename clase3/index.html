@@ -179,13 +179,52 @@
         }
       });
     </script>
-
-    <script></script>
-
     <!--Ejercicio 5-->
+    <h3>Ejercicio 5</h3>
+    <div id="cuadrado5"></div>
+
+    <script>
+      const cuadrado = document.querySelector("#cuadrado5");
+      cuadrado.addEventListener("mouseover", () => {cuadrado.style.transform = "rotate(45deg)"
+    })
+    cuadrado.addEventListener("mouseout", () => {cuadrado.style.transform = "rotate(0deg)"
+    })
+    </script>
+
     <!--Ejercicio 6-->
+    <h3>Ejercicio 6</h3>
+    <p id="parrafo-evento">Tecla presionada:</p>
+    <script>
+      function mostrarTecla() {
+        console.log(`Tecla presionada: ${event.key}`);
+        const parrafo = document.getElementById("parrafo-evento")
+        parrafo.textContent = "Tecla presionada: " + `${event.key}` 
+    }
+
+      document.addEventListener("keydown",mostrarTecla)
+    </script>
     <!--Ejercicio 7-->
+    <h3>Ejercicio 7</h3>
+    <div id="circulo"></div>
+    <br><br>
+    <button id="buttonHide">Mostrar / Ocultar</button>
+
+    <script>
+      function ocultar() {
+        if (circulo.style.display === 'none') {
+          circulo.style.display = 'block';
+        } else {
+          circulo.style.display = 'none';
+        }
+      }
+
+      const circulo = document.getElementById('circulo');
+      const buttonHide = document.getElementById('buttonHide')
+      
+      buttonHide.addEventListener('click',ocultar)
+    </script>
     <!--Ejercicio 8-->
+    
     <!--Ejercicio 9-->
     <!--Ejercicio 10-->
 
