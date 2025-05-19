@@ -78,7 +78,7 @@ label {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-color: black;
+  background-color: rgb(223, 35, 35);
   transition: background-color 0.3s;
   cursor: pointer;
 }
@@ -115,3 +115,10 @@ label {
   color: red;
 }
 
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
