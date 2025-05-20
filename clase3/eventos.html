@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos</title>
+    <link rel="stylesheet" href="/clase3/style.css" />
+  </head>
+  <body>
+    <!-- Eventos en JS-->
+    <h1>Eventos en JavaScript</h1>
+
+    <!--Ejercicio 1-->
+    <h3>Ejercicio 1</h3>
+    <button id="botonConsola">Clickea aqui para un mensaje en consola</button>
+    <script>
+      //evento de click
+      document.getElementById("botonConsola").addEventListener("click", () => {
+        console.log("Hola, este es un mensaje en consola");
+      });
+    </script>
+
+    <!--Ejercicio 2-->
+    <h3>Ejercicio 2</h3>
+    <input type="text" placeholder="escriba aqui.." id="campoText" />
+    <script>
+      document
+        .getElementById("campoText")
+        .addEventListener("input", colorDeFondo);
+      function colorDeFondo() {
+        document.getElementById("campoText").style.backgroundColor = "#E2E6E9";
+      }
+    </script>
+    <!--Ejercicio 3-->
+    <h3>Ejercicio 3</h3>
+    <button id="botonContador">Aumenta el contador ++</button>
+    <p id="contadorContent">Contador:</p>
+
+    <script>
+      let contador = 0;
+      document
+        .getElementById("botonContador")
+        .addEventListener("click", aumentarContador);
+      function aumentarContador() {
+        contador = contador + 1;
+        document.getElementById("contadorContent").textContent =
+          "Contador: " + contador;
+      }
+    </script>
+
+    <!--Ejercicio 4-->
+    <h3>Ejercicio 4</h3>
+
+    <form id="miFormulario">
+      <label for="user" id="campText">Ingrese su usuario:</label>
+      <br /><br />
+      <input type="text" id="userInput" placeholder="User" />
+      <br /><br />
+      <p class="mensajeError">⚠️ El campo NO puede estar vacio</p>
+      <button type="button" id="botonSubmit">Enviar</button>
+    </form>
+
+    <script>
+      const user = document.querySelector("#userInput");
+      const boton = document.querySelector("#botonSubmit");
+      const mensaje = document.querySelector(".mensajeError");
+
+      boton.addEventListener("click", () => {
+        if (user.value.length == 0) {
+          mensaje.style.display = "block";
+        } else {
+          mensaje.style.display = "block";
+          mensaje.style.color = "green";
+          mensaje.textContent = "✅El user fue ingresado correctamente";
+        }
+      });
+    </script>
+    <!--Ejercicio 5-->
+    <h3>Ejercicio 5</h3>
+    <div id="cuadrado5"></div>
+
+    <script>
+      const cuadrado = document.querySelector("#cuadrado5");
+      cuadrado.addEventListener("mouseover", () => {
+        cuadrado.style.transform = "rotate(45deg)";
+      });
+      cuadrado.addEventListener("mouseout", () => {
+        cuadrado.style.transform = "rotate(0deg)";
+      });
+    </script>
+
+    <!--Ejercicio 6-->
+    <h3>Ejercicio 6</h3>
+    <p id="parrafo-evento">Tecla presionada:</p>
+    <script>
+      function mostrarTecla() {
+        console.log(`Tecla presionada: ${event.key}`);
+        const parrafo = document.getElementById("parrafo-evento");
+        parrafo.textContent = "Tecla presionada: " + `${event.key}`;
+      }
+
+      document.addEventListener("keydown", mostrarTecla);
+    </script>
+    <!--Ejercicio 7-->
+    <h3>Ejercicio 7</h3>
+    <div id="circulo"></div>
+    <br /><br />
+    <button id="buttonHide">Mostrar / Ocultar</button>
+
+    <script>
+      function ocultar() {
+        if (circulo.style.display === "none") {
+          circulo.style.display = "block";
+        } else {
+          circulo.style.display = "none";
+        }
+      }
+
+      const circulo = document.getElementById("circulo");
+      const buttonHide = document.getElementById("buttonHide");
+
+      buttonHide.addEventListener("click", ocultar);
+    </script>
+    <!--Ejercicio 8-->
+    <h3>Ejercicio 8</h3>
+    <p>Selecciona una fruta:</p>
+
+    <select id="seleccionFrutas" onchange="funcionDropdown()">
+      <option value="manzana">Manzana</option>
+      <option value="banana">Banana</option>
+      <option value="naranja">Naranja</option>
+      <option value="frutilla">Frutilla</option>
+    </select>
+
+    <p id="frutaSeleccion">Su opcion fue:</p>
+
+    <script>
+      function funcionDropdown() {
+        const frutas = document.getElementById("seleccionFrutas").value;
+
+        document.getElementById("frutaSeleccion").innerHTML =
+          "Su eleccion fue: " + frutas;
+      }
+    </script>
+    <!--Ejercicio 9-->
+    <h3>Ejercicio 9</h3>
+    <form id="emailForm">
+      <label for="email">Correo:</label>
+      <input
+        type="text"
+        name="email"
+        id="email"
+        placeholder="Ingrese su email"
+      />
+      <p id="feedback" class="error"></p>
+      <button type="submit">Validar Email</button>
+    </form>
+
+    <script>
+      const form = document.querySelector("#emailForm");
+      const emailInput = document.querySelector("#email");
+      const feedback = document.querySelector("#feedback");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = emailInput.value;
+
+        if (validarEmail(email)) {
+          feedback.textContent = "El email introducido es valido";
+          feedback.className = "success";
+        } else {
+          feedback.textContent = "El email introducido NO es valido";
+          feedback.className = "error";
+        }
+      });
+      function validarEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      }
+    </script>
+
+    <!--Ejercicio 10-->
+    <h3>Ejercicio 10</h3>
+    <p>Mira el boton, boton</p>
+    <button id="botonCambiable">Cambiar</button>
+
+    <script>
+      const btnCambiable = document.getElementById("botonCambiable");
+      btnCambiable.addEventListener("click", function () {
+        btnCambiable.textContent = "Cambiado !";
+      });
+    </script>
+  </body>
+</html>

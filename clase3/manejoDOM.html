@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manejo DOM</title>
+    <link rel="stylesheet" href="/clase3/style.css" />
+  </head>
+  <body>
+    <!--Actividad practica-->
+    <h3>-- Actividad practica --</h3>
+    <h1 id="encabezado">Este es un titulo con DOM en JavaScript</h1>
+    <p id="parrafo">Este es un parrafo con fondo cambiable</p>
+    <button onclick="cambiar()">Cambiar</button>
+
+    <script>
+      function cambiar() {
+        const encabezado = document.getElementById("encabezado");
+        const parrafo = document.getElementById("parrafo");
+
+        encabezado.innerHTML = "Este es un nuevo titulo con DOM en JavaScript";
+        parrafo.style.backgroundColor = "blue";
+      }
+    </script>
+
+    <hr />
+    <!--Ejercicio 1-->
+    <h3>Ejercicio 1</h3>
+    <p id="texto">Este es un texto cambiable (manzana)</p>
+    <button onclick="cambiarTexto()">Cambiar</button>
+    <script>
+      function cambiarTexto() {
+        const texto = document.getElementById("texto");
+        texto.innerHTML = "Este es un texto cambiable (banana)";
+      }
+    </script>
+    <hr />
+
+    <!--Ejercicio 2-->
+    <h3>Ejercicio 2</h3>
+    <div id="cuadrado" onclick="cambiarColor()"></div>
+    <script>
+      function cambiarColor() {
+        document.getElementById("cuadrado").style.backgroundColor = "blue";
+      }
+    </script>
+    <hr />
+    <!--Ejercicio 3 -->
+    <h3>Ejercicio 3</h3>
+    <p class="clasesEspecificas">Estos son elementos cambiables (mono)</p>
+    <p class="clasesEspecificas">Estos son elementos cambiables (mono)</p>
+    <p class="clasesEspecificas">Estos son elementos cambiables (mono)</p>
+
+    <button onclick="cambiarElementos()">Cambiar</button>
+
+    <script>
+      function cambiarElementos() {
+        const elementos = document.querySelectorAll(".clasesEspecificas");
+        elementos.forEach((elemento) => {
+          elemento.textContent = "Estos son elementos cambiables (araña)";
+        });
+      }
+    </script>
+    <hr />
+    <!--Ejercicio 4 y 5-->
+    <h3>Ejercicio 4 y 5</h3>
+    <div id="elemento" class="clase-original">Este es un div</div>
+    <br />
+    <button onclick="ejercicio4()">Agregar clase</button>
+    <button onclick="ejercicio5()">Eliminar clase</button>
+
+    <script>
+      function ejercicio4() {
+        const elemento = document.getElementById("elemento");
+        elemento.classList.add("clase-nueva");
+      }
+
+      function ejercicio5() {
+        const elemento = document.getElementById("elemento");
+        elemento.classList.remove("clase-nueva");
+      }
+    </script>
+    <hr />
+    <!--Ejercicio 6-->
+    <h3>Ejercicio 6</h3>
+
+    <div id="div">
+      <img
+        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNhcnxlbnwwfHwwfHx8MA%3D%3D"
+        alt=""
+      />
+    </div>
+    <button onclick="ejercicio6()">Cambiar</button>
+
+    <script>
+      function ejercicio6() {
+        const div = document.getElementById("div");
+        div.innerHTML =
+          '<img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9yc2NoZXxlbnwwfHwwfHx8MA%3D%3D" alt="porsche 911">';
+      }
+    </script>
+    <hr />
+    <!--Ejercicio 7 -->
+    <h3>Ejercicio 7</h3>
+
+    <p id="parrafoClg" onclick="mostrar()">Selecciona este parrafo</p>
+    <script>
+      function mostrar() {
+        const elementoClg = document.getElementById("parrafoClg");
+        console.log(elementoClg.innerHTML);
+      }
+    </script>
+    <hr />
+  </body>
+</html>

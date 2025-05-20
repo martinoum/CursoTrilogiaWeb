@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arreglos</title>
+    <link rel="stylesheet" href="/clase3/style.css" />
+  </head>
+
+  <body>
+    <h1>ARREGLOS EN JAVASCRIPT</h1>
+
+    <!-- Ejercicio 1 -->
+    <h3>Ejercicio 1</h3>
+    <p id="arreglo"></p>
+    <p id="arregloIndex"></p>
+    <script>
+      const arreglo = ["Porsche", "BMW", "Lamborghini", "Mazda", "Toyota"];
+      const posicion = arreglo[2];
+      document.getElementById("arreglo").textContent =
+        "El arreglo es: [" + arreglo + "]";
+      document.getElementById("arregloIndex").textContent =
+        "El elemento de la posición 3 es: " + posicion;
+      console.log("El elemento de la posición 3 es: " + posicion);
+    </script>
+
+    <!-- Ejercicio 2 -->
+    <h3>Ejercicio 2</h3>
+    <p>Agregando Volkswagen ...</p>
+    <p id="arregloPush"></p>
+    <script>
+      arreglo.push("Volkswagen");
+      document.getElementById("arregloPush").textContent =
+        "El nuevo arreglo es: [" + arreglo + "]";
+    </script>
+
+    <!-- Ejercicio 3 -->
+    <h3>Ejercicio 3</h3>
+    <p>Eliminando Volkswagen ...</p>
+    <p id="arregloPop"></p>
+    <script>
+      arreglo.pop();
+      document.getElementById("arregloPop").textContent =
+        "El nuevo arreglo sin el ultimo elemento es: [" + arreglo + "]";
+    </script>
+
+    <!-- Ejercicio 4-->
+    <h3>Ejercicio 4</h3>
+    <p id="arregloNumerico"></p>
+    <p id="arregloX2"></p>
+    <script>
+      function multiplicar(num) {
+        return num * 2;
+      }
+      var arregloNumerico = [2, 4, 6, 8, 10];
+      var arregloX2 = arregloNumerico.map(multiplicar);
+      document.getElementById("arregloNumerico").textContent =
+        "El arreglo es: [" + arregloNumerico + "]";
+      document.getElementById("arregloX2").textContent =
+        "El nuevo arreglo de los elementos multiplicados por 2 es: [" +
+        arregloX2 +
+        "]";
+      console.log(arregloNumerico);
+      console.log(arregloX2);
+    </script>
+
+    <!-- Ejercicio 5 -->
+    <h3>Ejercicio 5</h3>
+    <p id="arregloFilter"></p>
+    <p id="arregloFiltrado"></p>
+
+    <script>
+      const arregloFilter = new Array(5);
+      for (let i = 0; i < arregloFilter.length; i++) {
+        arregloFilter[i] = Math.floor(Math.random() * 20) + 1;
+      }
+
+      const arregloFiltrado = arregloFilter.filter((num) => num > 9);
+      document.getElementById("arregloFilter").textContent =
+        "El arreglo es: [" + arregloFilter + "]";
+      document.getElementById("arregloFiltrado").textContent =
+        "El arreglo filtrado es: [" + arregloFiltrado + "]";
+    </script>
+
+    <h1>OBJETOS EN JAVASCRIPT</h1>
+    <!-- Ejercicio 6 -->
+    <h3>Ejercicio 6</h3>
+    <p>Persona:</p>
+    <p id="persona"></p>
+
+    <script>
+      const persona = {
+        nombre: "Martino",
+        edad: "21",
+        profesion: "Programador",
+      };
+      document.getElementById(
+        "persona"
+      ).innerHTML = `Nombre: ${persona.nombre}<br>
+       Edad: ${persona.edad}<br>
+       Profesión: ${persona.profesion}<br>
+      `;
+    </script>
+
+    <!-- Ejercicio 7 -->
+    <h3>Ejercicio 7</h3>
+    <p>Obtener datos de la persona:</p>
+
+    <button class="boton" data-atributo="nombre">Nombre</button>
+    <button class="boton" data-atributo="edad">Edad</button>
+    <button class="boton" data-atributo="profesion">Profesión</button>
+
+    <p id="getDatos"></p>
+
+    <script>
+      const botones = document.querySelectorAll(".boton");
+
+      botones.forEach((boton) => {
+        boton.addEventListener("click", () => {
+          const atributo = boton.dataset.atributo;
+          document.getElementById("getDatos").textContent =
+            "🔍El dato obtenido es: " + persona[atributo];
+        });
+      });
+    </script>
+
+    <!-- Ejercicio 8 -->
+    <h3>Ejercicio 8</h3>
+    <label for="name">Ingrese su nombre:</label><br /><br />
+    <input type="text" id="inputName" /><br /><br />
+    <p class="mensajeError">⚠️ El campo NO puede estar vacio</p>
+    <button id="submit">Enviar</button>
+
+    <script>
+      const inputName = document.querySelector("#inputName");
+      const botonSubmit = document.querySelector("#submit");
+      const mensaje = document.querySelector(".mensajeError");
+
+      const persona2 = {
+        nombre: inputName,
+        saludar: function () {
+          return alert("Hola " + this.nombre + "👋 !");
+        },
+      };
+
+      botonSubmit.addEventListener("click", () => {
+        if (inputName.value.length == 0) {
+          mensaje.style.display = "block";
+        } else {
+          persona2.nombre = inputName.value;
+          persona2.saludar();
+        }
+      });
+    </script>
+
+    <!-- Ejercicio 9 -->
+    <h3>Ejercicio 9</h3>
+    <p id="arregloReduce"></p>
+    <p id="sumaReduce"></p>
+
+    <script>
+      function funcionSuma(suma, num) {
+        return suma + num;
+      }
+      const arregloReduce = new Array(5);
+      for (let i = 0; i < arregloReduce.length; i++) {
+        arregloReduce[i] = Math.floor(Math.random() * 100) + 1;
+      }
+      const suma = arregloReduce.reduce(funcionSuma);
+      document.getElementById("arregloReduce").textContent =
+        "El arreglo es: [" + arregloReduce + "]";
+      document.getElementById("sumaReduce").textContent =
+        "La suma de los elementos del arreglo es: " + suma;
+    </script>
+
+    <!-- Ejercicio 10 -->
+    <h3>Ejercicio 10</h3>
+    <p>🔽Lista de nombres de los objetos:</p>
+    <ul id="listaElementos"></ul>
+    <script>
+      const elementos = [
+        { marca: "Yamaha", Cilindradas: 150 },
+        { marca: "Kawasaki", Cilindradas: 450 },
+        { marca: "Skua", Cilindradas: 150 },
+        { marca: "Honda", Cilindradas: 500 },
+      ];
+
+      const lista = document.getElementById("listaElementos");
+
+      for (let i = 0; i < elementos.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = elementos[i].marca;
+        lista.appendChild(li);
+      }
+
+      elementos.forEach((el) => console.log(el.marca));
+    </script>
+  </body>
+</html>
