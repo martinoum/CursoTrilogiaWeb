@@ -1,0 +1,91 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  margin-bottom: 50px;
+}
+
+h3 {
+  color: rgb(65, 138, 31);
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+button {
+  background-color: #dfdfdf;
+  color: #000000;
+  border: none;
+  padding: 10px 15px;
+  font-size: 11px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgb(141, 141, 255);
+}
+
+p {
+  color: #000000;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 5px 6px;
+  font-size: 14px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: rgb(123, 123, 124);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.contenedorProductos {
+  width: 25%;
+  padding: 15px 5px 15px 5px;
+  margin: 10px 0 10px 0;
+  background-color: #ccc;
+  border-radius: 10px;
+  display: none;
+}
+
+.contenedorCosto {
+  width: 30%;
+  padding: 2px 2px 2px 7px;
+  margin: 10px 0 10px 0;
+  display: none;
+}
+
+.contenedorCosto p {
+  font-size: 1.2 rem;
+  margin-left: 33px;
+}
+
+li {
+  list-style-type: none;
+  font-size: 1.3rem;
+  margin: 15px 0 5px 0;
+}
+
+.contenedorFiltro {
+  width: 30%;
+  padding: 2px 2px 2px 7px;
+  margin: 10px 0 10px 0;
+  display: none;
+}

@@ -60,7 +60,7 @@ console.log("Es verdadero: " + esVerdadero);
 console.log("Es falso: " + esFalso);
 console.log("No es verdadero: " + noEsVerdadero);
 
-//Ejercicio
+//Actividad practica. Crea tu primer Script
 
 let num1 = 10;
 let num2 = 20;

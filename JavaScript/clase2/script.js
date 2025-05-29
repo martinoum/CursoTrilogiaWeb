@@ -1,13 +1,21 @@
+//Introduccion a JS y Sintaxis Basica
+//ejercicio 1
 let nombre = "Martino";
 console.log(nombre);
+
+//ejercicio 2
 let num1 = 2;
 let num2 = 5;
 let res = num1 + num2;
 console.log("El resultado de", num1, "+", num2, "es:", res);
+
+//ejercicio 3
 let esMayor = 10 > 5;
 let esMenor = 5 < 2;
 console.log("10 > 5 es mayor?", esMayor);
 console.log("5 < 2 es menor?", esMenor);
+
+//ejercicio 4 y 5
 let variable = "Carlos";
 const constante = 3.14;
 console.log("La variable es:", variable);
@@ -16,6 +24,7 @@ variable = "Jose";
 console.log("La nueva variable es:", variable);
 //Nos muestra por pantalla que la constante ya tiene asignado un valor
 
+//ejercicio 6 y 7
 let boolean = false;
 if (boolean == true) {
   console.log("El booleano es verdadero");
@@ -25,22 +34,24 @@ if (boolean == true) {
   console.log(typeof boolean);
 }
 
+//ejercicio 8
 let lista = ["manzana", "naranja", "limon", "sandia", "frutilla", "melon"]; // de la posicion 0 a la 5
 console.log("La fruta de la lista es:", lista[1]);
 
+//ejercicio 9
 let num3 = 17;
 let num4 = 3;
 let resDivision = num3 % num4;
 console.log("El resto de", num3, " % ", num4, "es", resDivision);
 
+//ejercicio 10
 let sinValor;
 console.log("Valor de la variable vacia:", sinValor);
 
-//Calculadora
 
-//Fin Calculadora
-
-console.log("-- SIGUIENTES EJERCICIOS --");
+//Siguientes ejercicios ...
+console.log("-- ESTRUCTURAS DE CONTROL --");
+//Estructuras de control
 
 //ejercicio 1
 console.log("ejercicio 1");
@@ -183,7 +194,8 @@ switch (operador) {
   console.log("La resta de",num7,"-",num8,"es:",res);
 }
 
-console.log("-- SIGUIENTES EJERCICIOS --");
+// Siguientes ejercicios ..
+console.log("-- FUNCIONES EN JS --");
 
 //ejercicio 1
 console.log("ejercicio 1");
@@ -288,4 +300,40 @@ console.log("EL resultado de la suma de los numeros dentro del arreglo es:",suma
 
 //ejercicio 10
 console.log("ejercicio 10");
+
+function sumar(a, b) {
+  return a + b;
+}
+
+function restar(a, b) {
+  return a - b;
+}
+
+function multiplicar(a, b) {
+  return a * b;
+}
+
+function dividir(a, b) {
+  if (b === 0) {
+    return "Error: división por cero";
+  }
+  return a / b;
+}
+
+// Función principal que simula la calculadora
+function calcular10(a, b, operacion) {
+  switch (operacion) {
+    case "+":
+      return sumar(a, b);
+    case "-":
+      return restar(a, b);
+    case "*":
+      return multiplicar(a, b);
+    case "/":
+      return dividir(a, b);
+    default:
+      return "Operación no válida";
+  }
+}
+
 

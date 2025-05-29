@@ -122,3 +122,7 @@ label {
 .success {
   color: green;
 }
+
+.hidden {
+  display: none;
+}

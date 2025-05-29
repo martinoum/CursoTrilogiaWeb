@@ -4,11 +4,171 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Arreglos</title>
-    <link rel="stylesheet" href="/clase3/style.css" />
+    <link rel="stylesheet" href="/JavaScript/clase3/arreglos.css" />
   </head>
 
   <body>
-    <h1>ARREGLOS EN JAVASCRIPT</h1>
+    <h1>ARREGLOS EN JAVASCRIPT </h1>
+    
+    <!-- Actividad Practica -->
+    <p>Lista de productos 🔽</p>
+    <ul id="listaProductos"></ul>
+
+    <!--Se muestra por pantalla la lista de productos-->
+    <div class="contenedorProductos">
+      <label for="nombre">Nombre</label><br />
+      <input type="text" name="nombre" id="nombreProducto" />
+      <br /><br />
+      <label for="precio">Precio</label><br />
+      <input type="text" name="precio" id="precioProducto" />
+      <br /><br />
+      <label for="cantidad">Cantidad</label><br />
+      <input type="number" name="cantidad" id="cantProducto" />
+      <br /><br />
+      <button type="submit" id="submitProducto">Agregar</button>
+    </div>
+    <!--Se muestra por pantalla el costo total-->
+    <div class="contenedorCosto">
+      <p id="mostrarTotal">💵 El costo total es: $</p>
+    </div>
+
+    <!-- Le pedimos al usuario el precio para el filtro-->
+    <label for="precioSelect">Selecciona un precio:</label>
+    <select id="precioSelect">
+      <option value="">-- Todos --</option>
+    </select>
+
+    <!--Se muestra por pantalla los productos filtrado-->
+    <div class="contenedorFiltro">
+      <p>Lista de productos 🔽</p>
+      <ul id="resultadoFiltro"></ul>
+    </div>
+    <br /><br />
+    <button onclick="mostrarFormulario()">Agregar producto</button>
+    <button onclick="mostrarCosto()">Calcular costo total</button>
+    <button onclick="FiltrarProductos()">Filtrar producto por precio</button>
+
+    <script>
+      let arregloProducto = [];
+      let costoTotalActual = 0;
+
+      const listaProductos = document.getElementById("listaProductos");
+      const selectPrecios = document.getElementById("precioSelect");
+      const resultadoFiltro = document.getElementById("resultadoFiltro");
+
+      function mostrarFormulario() {
+        document.querySelector(".contenedorProductos").style.display = "block";
+      }
+
+      function mostrarProductos() {
+        listaProductos.innerHTML = "";
+        arregloProducto.forEach((producto, index) => {
+          const li = document.createElement("li");
+          li.textContent = `Producto ${index + 1} ➡ ${
+            producto.nombre
+          } | Precio: $${producto.precio} | Cantidad: ${
+            producto.cantidad
+          } | Precio Total: ${producto.precio * producto.cantidad}`;
+          listaProductos.appendChild(li);
+        });
+
+        actualizarSelectPrecios(); // actualiza el dropdown de precios cuando agregás productos
+      }
+
+      function mostrarCosto() {
+        document.querySelector(".contenedorCosto").style.display = "block";
+        document.getElementById(
+          "mostrarTotal"
+        ).textContent = `💵 El costo total es: $${costoTotalActual}`;
+      }
+
+      function agregarProducto() {
+        const nombre = document.getElementById("nombreProducto").value;
+        const cantidad = parseInt(
+          document.getElementById("cantProducto").value
+        );
+        const precio = parseFloat(
+          document.getElementById("precioProducto").value
+        );
+
+        if (!nombre || isNaN(precio) || isNaN(cantidad)) {
+          alert("Por favor, completá todos los campos correctamente.");
+          return;
+        }
+
+        const producto = { nombre, precio, cantidad };
+        arregloProducto.push(producto);
+
+        document.querySelector(".contenedorProductos").style.display = "none";
+        document.getElementById("nombreProducto").value = "";
+        document.getElementById("precioProducto").value = "";
+        document.getElementById("cantProducto").value = "";
+
+        mostrarProductos();
+        actualizarCostoTotal();
+        document.querySelector(".contenedorCosto").style.display = "none";
+      }
+
+      function actualizarCostoTotal() {
+        const total = arregloProducto.reduce((suma, p) => {
+          return suma + p.precio * p.cantidad;
+        }, 0);
+        costoTotalActual = total;
+      }
+
+      function actualizarSelectPrecios() {
+        // Obtener los precios únicos
+        const preciosUnicos = arregloProducto
+          .map((p) => p.precio)
+          .filter((precio, index, self) => self.indexOf(precio) === index);
+
+        // Limpiar opciones anteriores
+        selectPrecios.innerHTML = '<option value="">-- Todos --</option>';
+
+        // Agregar nuevas opciones
+        preciosUnicos.forEach((precio) => {
+          const opcion = document.createElement("option");
+          opcion.value = precio;
+          opcion.textContent = `$${precio}`;
+          selectPrecios.appendChild(opcion);
+        });
+      }
+
+      function FiltrarProductos() {
+        const precioSeleccionado = parseFloat(selectPrecios.value);
+
+        // Si no seleccionó nada, mostrar todo
+        let productosFiltrados = [];
+        if (isNaN(precioSeleccionado)) {
+          productosFiltrados = arregloProducto;
+        } else {
+          productosFiltrados = arregloProducto.filter(
+            (p) => p.precio === precioSeleccionado
+          );
+        }
+
+        if (productosFiltrados.length === 0) {
+          resultadoFiltro.innerHTML =
+            "<li>No hay productos con ese precio.</li>";
+          return;
+        }
+        
+        // Mostrar filtrados
+        resultadoFiltro.innerHTML = "";
+        productosFiltrados.forEach((p) => {
+          const li = document.createElement("li");
+          li.textContent = `${p.nombre} - Precio: $${p.precio} - Cantidad: ${p.cantidad}`;
+          resultadoFiltro.appendChild(li);
+        });
+      }
+
+      // Evento para agregar producto
+      document
+        .getElementById("submitProducto")
+        .addEventListener("click", agregarProducto);
+      // Evento para filtrar al cambiar el precio en el <select>
+      selectPrecios.addEventListener("change", FiltrarProductos);
+    </script>
 
     <!-- Ejercicio 1 -->
     <h3>Ejercicio 1</h3>

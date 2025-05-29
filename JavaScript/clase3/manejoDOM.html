@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manejo DOM</title>
-    <link rel="stylesheet" href="/clase3/style.css" />
+    <link rel="stylesheet" href="/JavaScript/clase3/style.css" />
   </head>
   <body>
     <!--Actividad practica-->
@@ -108,8 +108,57 @@
       function mostrar() {
         const elementoClg = document.getElementById("parrafoClg");
         console.log(elementoClg.innerHTML);
+        alert("Revisa la consola ➡")
       }
     </script>
+
+    <!--Ejercicio 8-->
+    <h3>Ejercicio 8</h3>
+    <div class="caja">Caja 1</div>
+    <div class="caja">Caja 2</div>
+    <div class="caja">Caja 3</div>
+    <br>
+    <button onclick="modificarElementos()">Modificar</button>
+    <script>
+      function modificarElementos() {
+        const cajas = document.querySelectorAll(".caja");
+        for (const caja of cajas) {
+          caja.textContent += "- modificada";
+        }
+      }
+    </script>
+
+    <!--Ejercicio 9-->
+    <h3>Ejercicio 9</h3>
+    <p class="hidden">Este es un parrafo oculto 🤫</p>
+    <button onclick="mostrar9()">Mostrar</button>
+    <button onclick="ocultar()">Ocultar</button>
+
+    <script>
+      function mostrar9() {
+        document.querySelector(".hidden").style.display = "block";
+      }
+
+      function ocultar() {
+        document.querySelector(".hidden").style.display = "none";
+      }
+    </script>
+
+    <!--Ejercicio 10-->
+    <h3>Ejercicio 10</h3>
+    <div class="container">
+      <p>Un primer elemento html</p>
+      <button onclick="agregarElemento()">Agregar</button>
+
+      <script>
+        function agregarElemento() {
+          const container10 = document.querySelector(".container");
+          const newElement = document.createElement("p");
+          newElement.textContent = "Un segundo elemento html";
+          container10.appendChild(newElement);
+        }
+      </script>
+    </div>
     <hr />
   </body>
 </html>
