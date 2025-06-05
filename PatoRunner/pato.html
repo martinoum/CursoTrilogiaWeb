@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pato Runner</title>
+    <link rel="stylesheet" href="/PatoRunner/pato.css">
+
+    <div class="contenedor">
+        <!--Capas de fondo-->
+        <div class="cielo"></div>
+        <div class="nubes"></div>
+        <div class="arboles"></div>
+        <div class="suelo"></div>
+
+        <!--Interfaz del juego-->
+        <div class="score-container">
+            <div class="icono-score"></div>
+            <div class="score">0</div>
+        </div>
+
+        <div class="vidas-container">
+            <div class="vida"></div>
+            <div class="vida"></div>
+            <div class="vida"></div>
+        </div>
+
+        <!--Personaje principal-->
+        <div class="pato pato-corriendo"></div>
+
+        <!--Pantallas del juego-->
+        <div class="pantalla-inicio">
+            <h1 class="titulo-juego">PATO RUNNER</h1>
+            <div class="instrucciones">
+                <p><span class="tecla">ESPACIO</span> para saltar</p>
+                <p><span class="tecla">⬇</span> para agacharse</p>
+            </div>
+            <button class="boton-inicio">¡JUGAR!</button>
+            <div class="autor">Creado por Martino</div>
+        </div>
+
+        <div class="game-over">
+            <h2>¡GAME OVER!</h2>
+            <p class="puntaje-final">Puntación: <span>0</span></p>
+            <div class="personaje-muerto"></div>
+            <button class="boton-reinicio">Jugar de nuevo</button>
+        </div>
+
+        <!--Indicador de nivel-->
+        <div class="nivel-indicador">
+            <span class="nivel-texto">NIVEL</span>
+            <span class="nivel-numero">1</span>
+        </div>
+    </div>
+
+    <script src="/PatoRunner/pato.js"></script>
+</head>
+<body>
+    
+</body>
+</html>

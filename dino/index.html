@@ -3,20 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dino</title>
-    <link rel="stylesheet" href="/dino/style.css">
+    <title>Juego Dino</title>
+    <link rel="stylesheet" href="/dino/style.css" />
   </head>
   <body>
     <div class="contenedor">
+      <div class="pantalla-inicio">
+        <h1 class="titulo-juego">Pato Runner</h1>
+        <div class="instrucciones">
+          <p>Espacio para saltar</p>
+          <p>Flecha abajo para agacharte</p>
+        </div>
+        <button class="boton-inicio">¡JUGAR!</button>
+      </div>
+
+      <div class="vidas-container">
+        <img src="/dino/img/corazon.png" class="vida" alt="Vida" />
+        <img src="/dino/img/corazon.png" class="vida" alt="Vida" />
+        <img src="/dino/img/corazon.png" class="vida" alt="Vida" />
+      </div>
+
+      <div class="game-over">
+        <h2>¡GAME OVER!</h2>
+        <p class="puntacion-final">Puntuación: <span>0</span></p>
+        <button class="boton-reinicio">Jugar de nuevo</button>
+      </div>
+
+      <div class="fondo-lejano"></div>
+      <div class="fondo-medio"></div>
+      <div class="nubes"></div>
       <div class="suelo"></div>
-
-      <div class="dino dino-corriendo"></div>
-
+      <div class="pato pato-corriendo"></div>
       <div class="score">0</div>
     </div>
 
-    <div class="game-over">GAME OVER</div>
-    
     <script src="/dino/dino.js"></script>
   </body>
 </html>

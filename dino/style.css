@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
 * {
   padding: 0;
   margin: 0;
@@ -8,131 +10,264 @@ body {
   background: #584040;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
+
+.pantalla-inicio {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.titulo-juego {
+  font-family: 'Pixelify Sans', cursive;
+  font-size: 60px;
+  color: #fff;
+  text-shadow: 3px 3px 0 #ff6b6b;
+  margin-bottom: 20px;
+}
+
+.instrucciones {
+  font-family: 'Pixelify Sans', cursive;
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.boton-inicio, .boton-reinicio {
+  font-family: 'Pixelify Sans', cursive;
+  padding: 10px 20px;
+  font-size: 20px;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.boton-inicio:hover, .boton-reinicio:hover {
+  transform: scale(1.1);
+  background: #ff5252;
+}
+
+/* Estilos para game over */
+.game-over {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: white;
+  font-family: 'Pixelify Sans', cursive;
+}
+
+.game-over h2 {
+  font-size: 50px;
+  color: #ff5252;
+  margin-bottom: 20px;
+}
+
+.puntuacion-final {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
 
 .contenedor {
   width: 920px;
-  height: 280px;
+  height: 288px;
   margin: 0 auto;
-
   position: relative;
-
-  background: linear-gradient(#b7d6c7, transparent) #ffe2d1; /*linear-gradient(#90ebff, white);*/
-  transition: background-color 1s linear;
+  background-color: #87ceeb ;
+  background-size: 100%;
+  background-position: center;
   overflow: hidden;
 }
 
-.mediodia {
-  background-color: #ffdcf3;
+.fondo-lejano {
+  position: absolute;
+  width: 200%;
+  height: 70px;
+  bottom: 42px; /* Justo encima del suelo */
+  left: 0;
+  background: url('/dino/img/montanas.png') repeat-x;
+  z-index: 0;
 }
 
-.tarde {
-  background-color: #ffadad;
+.fondo-medio {
+  position: absolute;
+  width: 200%;
+  height: 60px;
+  bottom: 42px;
+  left: 0;
+  background: url('/dino/img/arboles.png') repeat-x;
+  z-index: 0.5;
 }
 
-.noche {
-  background-color: #aca8c7;
+.nubes {
+  position: absolute;
+  width: 200%;
+  height: 80px;
+  top: 20px;
+  left: 0;
+  background: url('/dino/img/nubes.png') repeat-x;
+  z-index: 0;
 }
 
-.dino {
-  width: 66px;
-  height: 84px;
+.suelo {
+  width: 200%;
+  height: 42px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: url(/dino/img/suelo.png);
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
+}
 
+.vidas-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  z-index: 5;
+}
+
+.vida {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+
+
+
+.pato {
+  width: 42px;
+  height: 51px;
   position: absolute;
   bottom: 22px;
   left: 42px;
   z-index: 2;
 
-  background: url(/dino/img/Frame\ 1.png) repeat-x 0px 0px;
-  background-size: 275px 84px;
-  background-position-x: 0px;
+  background: url(/dino/img/PatoFrame\ .png) repeat-x 0px 0px ;
+  background-size: 393px 52px;
 }
 
-.dino-corriendo {
-  animation: animarDino 0.75s steps(4) infinite;
-}
-.dino-estrellado {
-  width: 84px;
-  height: 66px;
-  background: url(/dino/img/PatoMuerto.png) repeat-x ;
+.pato-corriendo {
+  animation: animarPato 0.8s steps(4) infinite;
 }
 
-
-.suelo {
-  width: 200%;
-  height: 42px;
-
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  background: url(img/suelo.png) repeat-x 0px 0px;
-  background-size: 50% 42px;
+.pato-muerto {
+  width: 51px;
+  height: 41px;
+  background-position: -307px;
 }
 
-.cactus {
-  width: 46px;
-  height: 96px;
-
-  position: absolute;
-  bottom: 16px;
-  left: 600px;
-  z-index: 1;
-
-  background: url(img/cactus1.png) no-repeat;
-}
-.cactus2 {
-  width: 98px;
-  height: 66px;
-
-  background: url(img/cactus2.png) no-repeat;
+.pato-saltando {
+  width: 43.8px;
+  height: 51px;
+  background-position: -168px;
 }
 
-.nube {
-  width: 92px;
-  height: 26px;
+.pato-agachado {
+  width: 42;
+  height: 40;
+  background-position: -214px;
+}
 
-  position: absolute;
-  z-index: 0;
+@keyframes animarPato {
+  from{
+    background-position-x: 0 ;
+  }
+  to{
+    background-position-x: -168px;
+  }
+}
 
-  background: url(img/nube.png) no-repeat;
-  background-size: 92px 26px;
+/* Efecto de brillos para el pato */
+@keyframes brilloPersonaje {
+  0% { filter: drop-shadow(0 0 0px #FFD700); }
+  50% { filter: drop-shadow(0 0 5px #FFD700); }
+  100% { filter: drop-shadow(0 0 0px #FFD700); }
+}
+
+.pato-power {
+  animation: brilloPersonaje 0.8s infinite, animarPato 0.8s steps(4) infinite;
+}
+
+/* Efecto para el salto */
+.pato-saltando {
+  transition: transform 0.1s;
+  transform: rotate(-10deg);
 }
 
 .score {
   width: 100px;
   height: 30px;
-
   position: absolute;
   top: 5px;
   right: 15px;
   z-index: 10;
 
-  color: #d48871;
-  font-family: Verdana;
+  color: rgb(0, 0, 0);
+  font-family: 'Pixelify Sans';
   font-size: 30px;
   font-weight: bold;
   text-align: right;
+
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.game-over {
-  display: none;
 
+.perro {
+  width: 93px;
+  height: 60px;
   position: absolute;
-  width: 100%;
-
-  text-align: center;
-  color: #7e928b;
-  font-size: 30px;
-  font-family: Verdana;
-  font-weight: 700;
+  bottom: 22px;
+  left: 600px;
+  z-index: 1;
+  background: url(/dino/img/PerroFrame.png) no-repeat;
+  animation: correrPerro 0.4s steps(4) infinite;
 }
 
-@keyframes animarDino {
+@keyframes correrPerro {
   from {
-    background-position-x: 0;
+    background-position-x:0 ;
   }
   to {
-    background-position-x: -275px;
+    background-position-x:-372px ;
+  }
+}
+
+.pajaro {
+  width: 38px;
+  height: 27px;
+  background: url(/dino/img/PajaroFrame.png) no-repeat;
+  position: absolute;
+  bottom: 100px;
+  left: 600px;
+  z-index: 1;
+  animation: volarPajaro 0.4s steps(5) infinite;
+}
+
+@keyframes volarPajaro {
+  from{
+    background-position-x:0 ;
+  }
+  to {
+    background-position-x:-190px ;
   }
 }

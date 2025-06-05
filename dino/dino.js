@@ -1,227 +1,169 @@
-//****** GAME LOOP ********//
+var time = new Date(); //se declara una variable global llamada time y se le asigna la fecha y hora actual
+var deltaTime = 0; //Variable que almacenara el tiempo (en seg) que ha pasado entre un frame y otro
 
-var time = new Date();
-var deltaTime = 0;
-
-if(document.readyState === "complete" || document.readyState === "interactive"){
-    setTimeout(Init, 1);
-}else{
-    document.addEventListener("DOMContentLoaded", Init); 
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    Init();
+} else {
+    document.addEventListener('DOMContentLoaded', Init);
 }
 
 function Init() {
-    time = new Date();
-    Start();
-    Loop();
+    time = new Date(); //Se actualiza al tiempo actual
+    Start(); //Llama a la funcion para la inicializacion del juego
+    Loop(); //Inicia el bucle principal
 }
 
+//Bucle de animacion, se ejecuta en cada 'frame' (60 veces por segundo)
 function Loop() {
-    deltaTime = (new Date() - time) / 1000;
-    time = new Date();
-    Update();
-    requestAnimationFrame(Loop);
+    deltaTime = (new Date() - time) / 1000; //Calcula el tiempo transcurrido desde el frame anterior (segundos)
+    time = new Date(); //Se actualiza el time para la siguiente medicion
+    Update(); //Logica del juego
+    requestAnimationFrame(Loop); //Repite en el siguiente frame
 }
 
-//****** GAME LOGIC ********//
+var sueloY = 15; //Altura del suelo donde el pato se apoya
+var velY = 0; //Velocidad vertical
+var impulso = 900; //Velocidad inicial al saltar
+var gravedad = 2500; //Aceleracion descendente
 
-var sueloY = 22;
-var velY = 0;
-var impulso = 900;
-var gravedad = 2500;
-
-var dinoPosX = 42;
-var dinoPosY = sueloY; 
+var patoPosX = 42;
+var patoPosY = sueloY;
 
 var sueloX = 0;
-var velEscenario = 1280/3;
-var gameVel = 1;
+var velEscenario = 1280 / 3;  //velocidad a la que se mueve el fondo
+var gameVel = 1; //Factor de velocidad general
 var score = 0;
 
-var parado = false;
-var saltando = false;
+var parado = false; //bandera para detener el juego
+var saltando = false; //bandera para saber si el dino esta en el aire
+var agachado = false;
 
 var tiempoHastaObstaculo = 2;
-var tiempoObstaculoMin = 0.7;
-var tiempoObstaculoMax = 1.8;
+var tiempoObstaculoMin = 1.5;
+var tiempoObstaculoMax = 3;
 var obstaculoPosY = 16;
 var obstaculos = [];
 
-var tiempoHastaNube = 0.5;
-var tiempoNubeMin = 0.7;
-var tiempoNubeMax = 2.7;
-var maxNubeY = 270;
-var minNubeY = 100;
-var nubes = [];
-var velNube = 0.5;
-
+//Elementos del DOM
 var contenedor;
-var dino;
+var pato;
 var textoScore;
 var suelo;
-var gameOver;
+var gameOverText;
 
 function Start() {
-    gameOver = document.querySelector(".game-over");
-    suelo = document.querySelector(".suelo");
-    contenedor = document.querySelector(".contenedor");
-    textoScore = document.querySelector(".score");
-    dino = document.querySelector(".dino");
-    document.addEventListener("keydown", HandleKeyDown);
+    gameOverText = document.querySelector('.game-over');
+    suelo = document.querySelector('.suelo');
+    contenedor = document.querySelector('.contenedor');
+    textoScore = document.querySelector('.score');
+    pato = document.querySelector(".pato")
+    document.addEventListener('keydown', HandleKeyDown);
+    document.addEventListener('keyup', HandleKeyUp)
+}
+
+function HandleKeyUp(ev) {
+    if (ev.keyCode == 40 || ev.keyCode == 83) {
+        Levantarse();
+    }
+}
+
+function HandleKeyDown(ev) {
+    if (ev.keyCode == 32) { //Tecla 'espacio'
+        Saltar();
+    } else if (ev.keyCode == 40 || ev.keyCode == 83) {
+        Agachar();
+    }
+}
+
+
+function Saltar() {
+    if(parado) return;
+    if (patoPosY === sueloY) { //solo salta si esta en el suelo
+        saltando = true;
+        velY = impulso; //aplica impulso para arriba
+        pato.classList.remove('pato-corriendo'); //Quita la clase de animacion
+        pato.classList.add('pato-saltando');
+    }
+}
+
+function Levantarse() {
+    if (parado) return;
+    if (agachado) {
+        agachado = false;
+        pato.classList.remove('pato-agachado');
+        pato.classList.add('pato-corriendo');
+    }
+}
+
+function Agachar() {
+    if(parado) return;
+    if (!agachado && patoPosY === sueloY) {
+        agachado = true;
+        pato.classList.remove('pato-corriendo');
+        pato.classList.add('pato-agachado');
+    }
 }
 
 function Update() {
-    if(parado) return;
-    
-    MoverDinosaurio();
+
+    if (parado) return;
     MoverSuelo();
+    MoverPato();
     DecidirCrearObstaculos();
-    DecidirCrearNubes();
     MoverObstaculos();
-    MoverNubes();
     DetectarColision();
-
-    velY -= gravedad * deltaTime;
-}
-
-function HandleKeyDown(ev){
-    if(ev.keyCode == 32){
-        Saltar();
-    }
-}
-
-function Saltar(){
-    if(dinoPosY === sueloY){
-        saltando = true;
-        velY = impulso;
-        dino.classList.remove("dino-corriendo");
-    }
-}
-
-function MoverDinosaurio() {
-    dinoPosY += velY * deltaTime;
-    if(dinoPosY < sueloY){
-        
-        TocarSuelo();
-    }
-    dino.style.bottom = dinoPosY+"px";
-}
-
-function TocarSuelo() {
-    dinoPosY = sueloY;
-    velY = 0;
-    if(saltando){
-        dino.classList.add("dino-corriendo");
-    }
-    saltando = false;
-}
-
-function MoverSuelo() {
-    sueloX += CalcularDesplazamiento();
-    suelo.style.left = -(sueloX % contenedor.clientWidth) + "px";
-}
-
-function CalcularDesplazamiento() {
-    return velEscenario * deltaTime * gameVel;
-}
-
-function Estrellarse() {
-    dino.classList.remove("dino-corriendo");
-    dino.classList.add("dino-estrellado");
-    parado = true;
+    velY -= gravedad * deltaTime; //aceleracion vertical descendente
 }
 
 function DecidirCrearObstaculos() {
     tiempoHastaObstaculo -= deltaTime;
-    if(tiempoHastaObstaculo <= 0) {
-        CrearObstaculo();
+    if (tiempoHastaObstaculo <= 0) {
+        const cantidad = Math.floor(Math.random() * 1) + 1; // de 1 a 3 enemigos
+
+        for (let i = 0; i < cantidad; i++) {
+            const tipo = Math.random() < 0.5 ? 'perro' : 'pajaro';
+            setTimeout(() => {
+                if (tipo === 'perro') {
+                    CrearObstaculoConOffset(i);
+                } else {
+                    CrearPajaroConOffset(i);
+                }
+            }, i * 300); // separa los enemigos entre sí
+        }
+
+        // Reiniciar el temporizador para el próximo grupo
+        tiempoHastaObstaculo = tiempoObstaculoMin + Math.random() * (tiempoObstaculoMax - tiempoObstaculoMin) / gameVel;
     }
 }
 
-function DecidirCrearNubes() {
-    tiempoHastaNube -= deltaTime;
-    if(tiempoHastaNube <= 0) {
-        CrearNube();
-    }
-}
-
-function CrearObstaculo() {
-    var obstaculo = document.createElement("div");
+function CrearObstaculoConOffset(i) {
+    var obstaculo = document.createElement('div');
+    obstaculo.classList.add('perro');
+    obstaculo.posX = contenedor.clientWidth + i * 40; // cada uno un poco más a la derecha
+    obstaculo.style.left = obstaculo.posX + 'px';
+    obstaculo.style.bottom = sueloY + 'px';
     contenedor.appendChild(obstaculo);
-    obstaculo.classList.add("cactus");
-    if(Math.random() > 0.5) obstaculo.classList.add("cactus2");
-    obstaculo.posX = contenedor.clientWidth;
-    obstaculo.style.left = contenedor.clientWidth+"px";
-
     obstaculos.push(obstaculo);
-    tiempoHastaObstaculo = tiempoObstaculoMin + Math.random() * (tiempoObstaculoMax-tiempoObstaculoMin) / gameVel;
 }
 
-function CrearNube() {
-    var nube = document.createElement("div");
-    contenedor.appendChild(nube);
-    nube.classList.add("nube");
-    nube.posX = contenedor.clientWidth;
-    nube.style.left = contenedor.clientWidth+"px";
-    nube.style.bottom = minNubeY + Math.random() * (maxNubeY-minNubeY)+"px";
-    
-    nubes.push(nube);
-    tiempoHastaNube = tiempoNubeMin + Math.random() * (tiempoNubeMax-tiempoNubeMin) / gameVel;
-}
-
-function MoverObstaculos() {
-    for (var i = obstaculos.length - 1; i >= 0; i--) {
-        if(obstaculos[i].posX < -obstaculos[i].clientWidth) {
-            obstaculos[i].parentNode.removeChild(obstaculos[i]);
-            obstaculos.splice(i, 1);
-            GanarPuntos();
-        }else{
-            obstaculos[i].posX -= CalcularDesplazamiento();
-            obstaculos[i].style.left = obstaculos[i].posX+"px";
-        }
-    }
-}
-
-function MoverNubes() {
-    for (var i = nubes.length - 1; i >= 0; i--) {
-        if(nubes[i].posX < -nubes[i].clientWidth) {
-            nubes[i].parentNode.removeChild(nubes[i]);
-            nubes.splice(i, 1);
-        }else{
-            nubes[i].posX -= CalcularDesplazamiento() * velNube;
-            nubes[i].style.left = nubes[i].posX+"px";
-        }
-    }
-}
-
-function GanarPuntos() {
-    score++;
-    textoScore.innerText = score;
-    if(score == 5){
-        gameVel = 1.5;
-        contenedor.classList.add("mediodia");
-    }else if(score == 10) {
-        gameVel = 2;
-        contenedor.classList.add("tarde");
-    } else if(score == 20) {
-        gameVel = 3;
-        contenedor.classList.add("noche");
-    }
-    suelo.style.animationDuration = (3/gameVel)+"s";
-}
-
-function GameOver() {
-    Estrellarse();
-    gameOver.style.display = "block";
+function CrearPajaroConOffset(i) {
+    var pajaro = document.createElement('div');
+    pajaro.classList.add('pajaro');
+    pajaro.posX = contenedor.clientWidth + i * 40; // también offset
+    pajaro.style.left = pajaro.posX + 'px';
+    pajaro.style.bottom = (60 + Math.random() * 9) + 'px';  // altura entre 42 y 51 px
+    pajaro.dataset.tipo = 'pajaro';
+    contenedor.appendChild(pajaro);
+    obstaculos.push(pajaro);
 }
 
 function DetectarColision() {
     for (var i = 0; i < obstaculos.length; i++) {
-        if(obstaculos[i].posX > dinoPosX + dino.clientWidth) {
-            //EVADE
-            break; //al estar en orden, no puede chocar con más
-        }else{
-            if(IsCollision(dino, obstaculos[i], 10, 30, 15, 20)) {
-                GameOver();
+        if (obstaculos[i].posX > patoPosX + pato.clientWidth) {
+            break;
+        } else {
+            if (IsCollision(pato, obstaculos[i], 10, 10, 10, 10)) {
+                gameOver();
             }
         }
     }
@@ -237,4 +179,82 @@ function IsCollision(a, b, paddingTop, paddingRight, paddingBottom, paddingLeft)
         ((aRect.left + aRect.width - paddingRight) < bRect.left) ||
         (aRect.left + paddingLeft > (bRect.left + bRect.width))
     );
+}
+
+function gameOver() {
+    Estrellarse();
+    gameOverText.style.display = "block";
+}
+
+function Estrellarse() {
+    pato.classList.remove('pato-corriendo','pato-saltando','pato-agachado');
+    pato.classList.add('pato-muerto');
+    parado = true;
+
+}
+
+function CrearPajaros() {
+    var pajaro = document.createElement('div');
+    pajaro.classList.add('pajaro');
+    contenedor.appendChild(pajaro);
+    pajaro.posX = contenedor.clientWidth;
+    pajaro.style.left = pajaro.posX + 'px';
+
+    pajaro.style.bottom = (80 + Math.random() * 80) + 'px';
+    pajaro.dataset.tipo = 'pajaro'
+    obstaculos.push(pajaro);
+}
+
+function CrearObstaculos() {
+    var obstaculo = document.createElement('div');
+    contenedor.appendChild(obstaculo);
+    obstaculo.classList.add('perro');
+    obstaculo.posX = contenedor.clientWidth;
+    obstaculo.style.left = contenedor.clientWidth + 'px';
+    obstaculos.push(obstaculo);
+    tiempoHastaObstaculo = tiempoObstaculoMin + Math.random() * (tiempoObstaculoMax - tiempoObstaculoMin) / gameVel;
+}
+
+function MoverObstaculos() {
+    for (var i = obstaculos.length - 1; i >= 0; i--) {
+        if (obstaculos[i].posX < -obstaculos[i].clientWidth) {
+            obstaculos[i].parentNode.removeChild(obstaculos[i]);
+            obstaculos.splice(i, 1);
+            GanarPuntos();
+        } else {
+            obstaculos[i].posX -= CalcularDesplazamiento();
+            obstaculos[i].style.left = obstaculos[i].posX + 'px';
+        }
+    }
+}
+
+function GanarPuntos() {
+    score++;
+    textoScore.innerText = score;
+}
+
+function MoverSuelo() {
+    sueloX += CalcularDesplazamiento();
+    suelo.style.backgroundPositionX = -(sueloX) + 'px';
+}
+
+function CalcularDesplazamiento() {
+    return velEscenario * deltaTime * gameVel;
+}
+
+function MoverPato() {
+    patoPosY += velY * deltaTime;
+    if (patoPosY < sueloY) {
+        TocarSuelo();
+    }
+    pato.style.bottom = patoPosY + 'px';
+}
+
+function TocarSuelo() {
+    patoPosY = sueloY;
+    velY = 0;
+    if (saltando) {
+        pato.classList.add('pato-corriendo');
+    }
+    saltando = false;
 }
